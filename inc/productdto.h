@@ -42,6 +42,12 @@ private:
     double m_price;
     QString m_currency;
     quint16 m_quantity;
+
+    static QString ID_KEY;
+    static QString NAME_KEY;
+    static QString PRICE_KEY;
+    static QString CURRENCY_KEY;
+    static QString QUANTITY_KEY;
 };
 
 #endif // PRODUCTDTO_H

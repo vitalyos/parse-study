@@ -1,5 +1,11 @@
 #include "productdto.h"
 
+QString ProductDTO::ID_KEY = "object_id";
+QString ProductDTO::NAME_KEY = "name";
+QString ProductDTO::PRICE_KEY = "price";
+QString ProductDTO::CURRENCY_KEY = "currency";
+QString ProductDTO::QUANTITY_KEY = "quantity";
+
 ProductDTO::ProductDTO(QObject *parentObj) : QObject(parentObj)
 {
 
