@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QtGlobal>
 #include <QString>
+#include <QJsonObject>
 
 class ProductDTO : public QObject
 {
@@ -30,6 +31,10 @@ public:
 
     QString id() const;
     void setId(const QString &id);
+
+    void fromJson(const QJsonObject& source);
+    QJsonObject toJson() const;
+
 
 signals:
     void contentChanged();

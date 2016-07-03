@@ -65,3 +65,17 @@ void ProductDTO::setId(const QString &id)
     m_id = id;
     emit contentChanged();
 }
+
+void ProductDTO::fromJson(const QJsonObject &source)
+{
+    m_id = source[ID_KEY].toString();
+    m_name = source[NAME_KEY].toString();
+    m_price = source[PRICE_KEY].toDouble();
+    m_currency = source[CURRENCY_KEY].toString();
+    m_quantity = source[QUANTITY_KEY].toInt();
+}
+
+QJsonObject ProductDTO::toJson() const
+{
+
+}
