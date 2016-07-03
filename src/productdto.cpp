@@ -1,6 +1,6 @@
 #include "productdto.h"
 
-QString ProductDTO::ID_KEY = "object_id";
+QString ProductDTO::ID_KEY = "objectId";
 QString ProductDTO::NAME_KEY = "name";
 QString ProductDTO::PRICE_KEY = "price";
 QString ProductDTO::CURRENCY_KEY = "currency";
