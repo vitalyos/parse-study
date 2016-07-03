@@ -48,3 +48,14 @@ void ProductDTO::setQuantity(const quint16 &quantity)
     m_quantity = quantity;
     emit contentChanged();
 }
+
+QString ProductDTO::id() const
+{
+    return m_id;
+}
+
+void ProductDTO::setId(const QString &id)
+{
+    m_id = id;
+    emit contentChanged();
+}

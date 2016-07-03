@@ -12,6 +12,7 @@ class ProductDTO : public QObject
     Q_PROPERTY(double price READ price WRITE setPrice NOTIFY contentChanged)
     Q_PROPERTY(QString currency READ currency WRITE setCurrency NOTIFY contentChanged)
     Q_PROPERTY(quint16 quantity READ quantity WRITE setQuantity NOTIFY contentChanged)
+    Q_PROPERTY(QString id READ id WRITE setId NOTIFY contentChanged)
 public:
     explicit ProductDTO(QObject *parentObj = Q_NULLPTR);
 
@@ -27,12 +28,16 @@ public:
     quint16 quantity() const;
     void setQuantity(const quint16 &quantity);
 
+    QString id() const;
+    void setId(const QString &id);
+
 signals:
     void contentChanged();
 
 public slots:
 
 private:
+    QString m_id;
     QString m_name;
     double m_price;
     QString m_currency;
