@@ -73,9 +73,16 @@ void ProductDTO::fromJson(const QJsonObject &source)
     m_price = source[PRICE_KEY].toDouble();
     m_currency = source[CURRENCY_KEY].toString();
     m_quantity = source[QUANTITY_KEY].toInt();
+    emit contentChanged();
 }
 
 QJsonObject ProductDTO::toJson() const
 {
-
+    QJsonObject destination;
+    destination.insert(ID_KEY, m_id);
+    destination.insert(NAME_KEY, m_name);
+    destination.insert(PRICE_KEY, m_price);
+    destination.insert(CURRENCY_KEY, m_currency);
+    destination.insert(QUANTITY_KEY, m_quantity);
+    return destination;
 }
