@@ -1,6 +1,7 @@
 import QtQuick 2.3
 import QtQuick.Layouts 1.3
 import QtQuick.Controls 1.4
+import edu.parse.demo 1.0
 
 Rectangle {
     id: root;
@@ -8,7 +9,16 @@ Rectangle {
     height: 800;
     color: "lightgrey";
 
-    signal instert(string name, double price, string currency, int quantity);
+    signal insert(string name, double price, string currency, int quantity);
+
+    ProductModel {
+        id: model;
+    }
+
+    Connections {
+        target: root;
+        onInsert: model.insert(name, price, currency, quantity);
+    }
 
     RowLayout {
         id: rowContianer;
@@ -72,7 +82,7 @@ Rectangle {
                 Button {
                     id: addButton;
                     text: "new";
-                    onClicked: root.instert(nameField.text, prieField.text, currencyField.text, quantityField.text);
+                    onClicked: root.insert(nameField.text, prieField.text, currencyField.text, quantityField.text);
                 }
             }
 
