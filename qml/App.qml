@@ -12,12 +12,12 @@ Rectangle {
     signal insert(string name, double price, string currency, int quantity);
 
     ProductModel {
-        id: model;
+        id: pmodel;
     }
 
     Connections {
         target: root;
-        onInsert: model.insert(name, price, currency, quantity);
+        onInsert: pmodel.insert(name, price, currency, quantity);
     }
 
     RowLayout {
@@ -28,17 +28,18 @@ Rectangle {
             Button {
                 id: refreshBtn;
                 text: "refresh";
-                onClicked: model.getAll();
+                onClicked: pmodel.getAll();
             }
 
             ListView {
                 id: elements;
                 width: 800;
                 height: 750;
-                delegate: Item {
-                    width: elements.width;
-                    height: 150;
+                model: pmodel.prods;
+                delegate: Component {
                     RowLayout {
+                        height: 150;
+
                         ColumnLayout {
                             Text {
                                 id: idLabel;
@@ -106,7 +107,6 @@ Rectangle {
                                 text: "delete";
                             }
                         }
-
                     }
                 }
             }

@@ -6,8 +6,6 @@
 #include <QJsonArray>
 #include <QList>
 
-#include "productdto.h"
-
 const QString ProductModel::REST_URL = "http://192.168.0.172:1337/parse/classes/Products";
 const QByteArray ProductModel::APP_ID = "demo";
 const QByteArray ProductModel::PARSE_APP_ID_HEADER = "X-Parse-Application-Id";
@@ -41,14 +39,26 @@ void ProductModel::parseGetAllResponse(QNetworkReply *response)
 
     auto array = QJsonDocument::fromJson(respText).object().value("results").toArray();
 
-    QList<ProductDTO*> dtos;
+    QVariantList dtos;
 
     for (const auto& el: array)
     {
         ProductDTO* prod = new ProductDTO(this);
         prod->fromJson(el.toObject());
-        dtos << prod;
+        dtos << QVariant::fromValue(prod);
     }
+    setProducts(dtos);
+}
+
+QVariantList ProductModel::getProducts() const
+{
+    return m_products;
+}
+
+void ProductModel::setProducts(const QVariantList &products)
+{
+    m_products = products;
+    emit productsChanged();
 }
 
 void ProductModel::insert(QString name, double price, QString currency, int quantity)

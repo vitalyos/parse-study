@@ -4,13 +4,18 @@
 #include <QObject>
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
+#include "productdto.h"
 
 class ProductModel: public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(QVariantList prods READ getProducts WRITE setProducts NOTIFY productsChanged)
 public:
     ProductModel(QObject* aParent = Q_NULLPTR);
     ~ProductModel();
+
+    QVariantList getProducts() const;
+    void setProducts(const QVariantList &products);
 
 private:
     void parseInsertResponse(QNetworkReply* response);
@@ -20,8 +25,11 @@ private:
     QNetworkAccessManager* m_insertManager;
     QNetworkAccessManager* m_getAllManager;
 
+    QVariantList m_products;
+
 signals:
     void requireProducts();
+    void productsChanged();
 
 private:
     const static QString REST_URL;
