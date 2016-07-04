@@ -13,17 +13,24 @@ public:
     ~ProductModel();
 
 private:
-    void parseInsertResponse(QNetworkReply *response);
+    void parseInsertResponse(QNetworkReply* response);
+    void parseGetAllResponse(QNetworkReply* response);
 
 private:
     QNetworkAccessManager* m_insertManager;
+    QNetworkAccessManager* m_getAllManager;
+
+signals:
+    void requireProducts();
 
 private:
     const static QString REST_URL;
     const static QByteArray APP_ID;
     const static QByteArray PARSE_APP_ID_HEADER;
+
 public slots:
     void insert(QString name, double price, QString currency, int quantity);
+    void getAll();
 };
 
 #endif // PRODUCTMODEL_H
