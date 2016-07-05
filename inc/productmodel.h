@@ -18,11 +18,10 @@ public:
     void setProducts(const QVariantList &products);
 
 private:
-    void parseInsertResponse(QNetworkReply* response);
+    void parseInsertUpdateDeleteResponse(QNetworkReply* response);
     void parseGetAllResponse(QNetworkReply* response);
-
 private:
-    QNetworkAccessManager* m_insertManager;
+    QNetworkAccessManager* m_insertUpdateDeleteManager;
     QNetworkAccessManager* m_getAllManager;
 
     QVariantList m_products;
@@ -38,7 +37,9 @@ private:
 
 public slots:
     void insert(QString name, double price, QString currency, int quantity);
+    void update(QString id, QString name, double price, QString currency, int quantity);
     void getAll();
+    void deleteProduct(const QSting& id);
 };
 
 #endif // PRODUCTMODEL_H

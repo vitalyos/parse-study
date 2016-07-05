@@ -13,10 +13,10 @@ const QByteArray ProductModel::PARSE_APP_ID_HEADER = "X-Parse-Application-Id";
 ProductModel::ProductModel(QObject *aParent)
     : QObject(aParent)
 {
-    m_insertManager = new QNetworkAccessManager(this);
+    m_insertUpdateDeleteManager = new QNetworkAccessManager(this);
     m_getAllManager = new QNetworkAccessManager(this);
 
-    connect(m_insertManager, &QNetworkAccessManager::finished, this, &ProductModel::parseInsertResponse);
+    connect(m_insertUpdateDeleteManager, &QNetworkAccessManager::finished, this, &ProductModel::parseInsertUpdateDeleteResponse);
     connect(m_getAllManager, &QNetworkAccessManager::finished, this, &ProductModel::parseGetAllResponse);
 
     connect(this, &ProductModel::requireProducts, this, &ProductModel::getAll);
@@ -24,12 +24,12 @@ ProductModel::ProductModel(QObject *aParent)
 
 ProductModel::~ProductModel()
 {
-    delete m_insertManager;
+    delete m_insertUpdateDeleteManager;
 }
 
-void ProductModel::parseInsertResponse(QNetworkReply *response)
+void ProductModel::parseInsertUpdateDeleteResponse(QNetworkReply *response)
 {
-    qDebug () << "insert response: " << response->readAll();
+    qDebug () << "response: " << response->readAll();
 }
 
 void ProductModel::parseGetAllResponse(QNetworkReply *response)
@@ -74,7 +74,25 @@ void ProductModel::insert(QString name, double price, QString currency, int quan
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
     request.setRawHeader(PARSE_APP_ID_HEADER, APP_ID);
 
-    m_insertManager->post(request, QJsonDocument(prod->toJson()).toJson());
+    m_insertUpdateDeleteManager->post(request, QJsonDocument(prod->toJson()).toJson());
+
+    emit requireProducts();
+}
+
+void ProductModel::update(QString id, QString name, double price, QString currency, int quantity)
+{
+    ProductDTO *prod = new ProductDTO();
+    prod->setName(name);
+    prod->setPrice(price);
+    prod->setCurrency(currency);
+    prod->setQuantity(quantity);
+
+    QNetworkRequest request;
+    request.setUrl(REST_URL + "/" + id);
+    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+    request.setRawHeader(PARSE_APP_ID_HEADER, APP_ID);
+
+    m_insertUpdateDeleteManager->put(request, QJsonDocument(prod->toJson()).toJson());
 
     emit requireProducts();
 }
@@ -87,4 +105,16 @@ void ProductModel::getAll()
     request.setRawHeader(PARSE_APP_ID_HEADER, APP_ID);
 
     m_getAllManager->get(request);
+}
+
+void ProductModel::deleteProduct(const QSting &id)
+{
+    QNetworkRequest request;
+    request.setUrl(REST_URL + "/" + id);
+    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+    request.setRawHeader(PARSE_APP_ID_HEADER, APP_ID);
+
+    m_insertUpdateDeleteManager->deleteResource(request);
+
+    emit requireProducts();
 }
