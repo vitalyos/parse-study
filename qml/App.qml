@@ -10,6 +10,7 @@ Rectangle {
     color: "lightgrey";
 
     signal insert(string name, double price, string currency, int quantity);
+    signal update(string id, string name, double price, string currency, int quantity)
 
     ProductModel {
         id: pmodel;
@@ -71,6 +72,7 @@ Rectangle {
                             TextField {
                                 id: priceField;
                                 text: model.modelData.price;
+                                validator: DoubleValidator{}
                             }
                         }
 
@@ -93,6 +95,7 @@ Rectangle {
                             TextField {
                                 id: quantityField;
                                 text: model.modelData.quantity;
+                                validator: IntValidator{}
                             }
                         }
 
@@ -100,11 +103,13 @@ Rectangle {
                             Button {
                                 id: updateBtn;
                                 text: "update";
+                                onClicked: root.update(model.modelData.id, currencyField.text, priceField.text, currencyField.text, quantityField.text);
                             }
 
                             Button {
                                 id: deleteButton;
                                 text: "delete";
+                                onClicked: pmodel.deleteProduct(model.modelData.id);
                             }
                         }
                     }

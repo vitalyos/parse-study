@@ -107,7 +107,7 @@ void ProductModel::getAll()
     m_getAllManager->get(request);
 }
 
-void ProductModel::deleteProduct(const QSting &id)
+void ProductModel::deleteProduct(const QString &id)
 {
     QNetworkRequest request;
     request.setUrl(REST_URL + "/" + id);

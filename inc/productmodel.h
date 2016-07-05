@@ -39,7 +39,7 @@ public slots:
     void insert(QString name, double price, QString currency, int quantity);
     void update(QString id, QString name, double price, QString currency, int quantity);
     void getAll();
-    void deleteProduct(const QSting& id);
+    void deleteProduct(const QString& id);
 };
 
 #endif // PRODUCTMODEL_H
