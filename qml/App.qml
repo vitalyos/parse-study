@@ -19,6 +19,7 @@ Rectangle {
     Connections {
         target: root;
         onInsert: pmodel.insert(name, price, currency, quantity);
+        onUpdate: pmodel.update(id, name, price, currency, quantity);
     }
 
     RowLayout {

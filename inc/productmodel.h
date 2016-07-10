@@ -34,6 +34,7 @@ private:
     const static QString REST_URL;
     const static QByteArray APP_ID;
     const static QByteArray PARSE_APP_ID_HEADER;
+    const static QString CONTENT_TYPE;
 
 public slots:
     void insert(QString name, double price, QString currency, int quantity);
