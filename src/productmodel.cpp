@@ -6,10 +6,11 @@
 #include <QJsonArray>
 #include <QList>
 
-// FIXME change the REST_URL
-const QString ProductModel::REST_URL = "http://<URL>/parse/classes/Products";
-// FIXME change the APP_ID
-const QByteArray ProductModel::APP_ID = "<ID>";
+// FIXME change the <URL>
+// FIXME chenge the <port>
+const QString ProductModel::REST_URL = "http://<URL>:<port>/parse/classes/Products";
+// FIXME change the <app-id>
+const QByteArray ProductModel::APP_ID = "<app-id>";
 const QByteArray ProductModel::PARSE_APP_ID_HEADER = "X-Parse-Application-Id";
 const QString ProductModel::CONTENT_TYPE = "application/json";
 

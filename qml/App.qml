@@ -104,7 +104,7 @@ Rectangle {
                             Button {
                                 id: updateBtn;
                                 text: "update";
-                                onClicked: root.update(model.modelData.id, currencyField.text, priceField.text, currencyField.text, quantityField.text);
+                                onClicked: root.update(model.modelData.id, nameField.text, priceField.text, currencyField.text, quantityField.text);
                             }
 
                             Button {
